@@ -19,6 +19,7 @@ info          | Shows credits for Easy SSH
 #Requirements
 1. Python3 or higher!
 2. Mac
+
 #Instructions
 1. First, git clone this repo onto your desktop. `git clone https://github.com/xSynthx/Easy-SSH`
 2. Open terminal, cd to the directory that easy_ssh.py is. *I prefer Desktop*

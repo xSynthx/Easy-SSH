@@ -7,6 +7,10 @@
 
 import readline # arrow keys
 import os # This imports your OS.
+cancelArray = ["cancel", "back"] # list of user inputs to stop current function
+helpArray = ["help", "?", "/help"] # list of user inputs to print help
+exitArray = ["exit", "stop", "quit"] # list of user inputs to quit program
+clearStr("\x0a" * 80) # a bunch of newlines
 exit = False
 ssh = ['ssh', 'SSH']
 color = {
@@ -51,26 +55,32 @@ print(header + 'Type "help" to begin!')
 def Main():
 	global exit
 	mainInput = input(color['RED'] + 'Easy SSH> ' + color['DEFAULT'])
-	if mainInput.lower() == 'help':
+	if mainInput.lower() in helpArray: # changed to accept multiple inputs
 		os.system('clear')
 		print(printHelp)
 		Main()
-	elif mainInput == '':
-		Main()
-	elif mainInput.lower() == 'exit':
-		os.system('clear')
+	# elif mainInput == '':
+	# 	Main()
+	while mainInput == '': # added
+		mainInput = input(color['RED'] + 'Easy SSH> ' + color['DEFAULT']) # added
+	elif mainInput.lower() in exitArray: # changed to accept multiple inputs
+		# os.system('clear')
+		print(clearStr)
 		print(exitSentence)
 		exit = True
-	elif 'ssh' in mainInput or 'SSH' in mainInput:
-		os.system('clear')
+	elif 'ssh' in mainInput.lower(): # changed because unneccessary code
+		# os.system('clear')
+		print(clearStr)
 		print(header + 'Enter IP of device you would like to SSH into. (e.x. 100.234.857.85)')
 		sshStart()
 	elif mainInput.lower() == 'info':
-		os.system('clear')
+		# os.system('clear')
+		print(clearStr)
 		print(credits)
 		Main()
 	elif mainInput.lower() == 'clear':
-		os.system('clear')
+		# os.system('clear')
+		print(clearStr)
 		print(header)
 		Main()
 	else:
@@ -79,27 +89,36 @@ def Main():
 def sshStart():
 	global exit
 	mainInputSSH = input(color['RED'] + 'IP> ' + color['DEFAULT'])
-	if mainInputSSH.lower() == '':
-		sshStart()
-	elif mainInputSSH.lower() == 'cancel':
-		os.system('clear')
+	# if mainInputSSH.lower() == '':
+	# 	sshStart()
+	while mainInputSSH == '': # added
+		mainInputSSH = input(color['RED'] + 'IP> ' + color['DEFAULT']) # added
+	elif mainInputSSH.lower() in cancelArray: # changed to accept multiple inputs
+		# os.system('clear')
+		print(clearStr)
 		print(header + 'Type "help" to begin!')
 		Main()
 	else:
-		os.system('clear')
+		# os.system('clear')
+		print(clearStr)
 		print(header + 'Please specify what user to login as!')
 		sshUser(mainInputSSH)
 def sshUser(SSH_IP):
 	global exit
 	mainInputUser = input(color['RED'] + 'User> ' + color['DEFAULT'])
-	if mainInputUser.lower() == '':
-		sshUser(SSH_IP)
+	# if mainInputUser.lower() == '':
+	# 	sshUser(SSH_IP)
+	while mainInputUser == '': # added
+		mainInputUser = input(color['RED'] + 'User> ' + color['DEFAULT']) # added
 	elif mainInputUser.lower() == 'cancel':
-		os.system('clear')
+		# os.system('clear')
+		print(clearStr)
 		print(header + 'Type "help" to begin!')
 		Main()
 	else:
-		os.system('clear;' + 'ssh ' + mainInputUser + '@' + SSH_IP)
+		# os.system('clear;' + 'ssh ' + mainInputUser + '@' + SSH_IP)
+		print(clearStr)
+		os.system('ssh ' + mainInputUser + '@' + SSH_IP)
 		print(header)
 		Main()
 while exit == False:
